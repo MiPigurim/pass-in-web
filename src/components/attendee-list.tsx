@@ -1,3 +1,3 @@
 export function AttendeeList() {
-  return <h1>Participantes</h1>;
+  return <h1 className="text-2xl font-bold">Participantes</h1>;
 }
