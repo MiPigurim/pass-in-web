@@ -22,7 +22,7 @@ export function AttendeeList() {
       </div>
 
       <div className="border border-white/10 rounded-lg">
-        <table className="w-fulll ">
+        <table className="w-full">
           <thead>
             <tr className="border-b border-white/10">
               <th
@@ -69,8 +69,8 @@ export function AttendeeList() {
                   <td className="py-3 px-4 text-ms text-zinc-300">12345</td>
                   <td className="py-3 px-4 text-ms text-zinc-300">
                     <div className="flex flex-col gap-1">
-                      <span className="font-demibold text-white">
-                        Diefo Schell Fernandes
+                      <span className="font-semibold text-white">
+                        Diego Schell Fernandes
                       </span>
                       <span>diego@rocketseat.com.br</span>
                     </div>
@@ -81,10 +81,11 @@ export function AttendeeList() {
                   <td className="py-3 px-4 text-ms text-zinc-300">
                     3 dias atrás
                   </td>
-                  <td className="py-3 px-4 text-ms text-zinc-300"></td>
-                  <button className="bg-black/20 border border-white/10 rounded-md p-1.5">
-                    <MoreHorizontal className="size-4" />
-                  </button>
+                  <td className="py-3 px-4 text-ms text-zinc-300">
+                    <button className="bg-black/20 border border-white/10 rounded-md p-1.5">
+                      <MoreHorizontal className="size-4" />
+                    </button>
+                  </td>
                 </tr>
               );
             })}
@@ -99,10 +100,10 @@ export function AttendeeList() {
                 className="py-3 px-4 text-ms text-zinc-300 text-right"
                 colSpan={3}
               >
-                <div className="flex items-center gap-8">
+                <div className="inline-flex items-center gap-8">
                   <span>Página 1 de 23</span>
 
-                  <div className="inline-flex gap-1.5">
+                  <div className="flex gap-1.5">
                     <button className="bg-white/20 border border-white/10 rounded-md p-1.5">
                       <ChevronsLeft className="size-4" />
                     </button>
