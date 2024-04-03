@@ -10,6 +10,7 @@ import { IconButton } from "./icon-button";
 import { Table } from "./table/table";
 import { TableHeader } from "./table/table-header";
 import { TableCell } from "./table/table-cell";
+import { TableRow } from "./table/table-row";
 
 export function AttendeeList() {
   return (
@@ -45,7 +46,7 @@ export function AttendeeList() {
         <tbody>
           {Array.from({ length: 8 }).map((_, i) => {
             return (
-              <tr key={i} className="border-b border-white/10 hover:bg-white/5">
+              <TableRow key={i}>
                 <TableCell>
                   <input
                     type="checkbox"
@@ -68,7 +69,7 @@ export function AttendeeList() {
                     <MoreHorizontal className="size-4" />
                   </IconButton>
                 </TableCell>
-              </tr>
+              </TableRow>
             );
           })}
         </tbody>
@@ -79,7 +80,6 @@ export function AttendeeList() {
             <TableCell className="text-right" colSpan={3}>
               <div className="inline-flex items-center gap-8">
                 <span>Página 1 de 23</span>
-
                 <div className="flex gap-1.5">
                   <IconButton>
                     <ChevronsLeft className="size-4" />
