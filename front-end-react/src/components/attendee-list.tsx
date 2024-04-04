@@ -14,8 +14,8 @@ import { Table } from "./table/table";
 import { TableHeader } from "./table/table-header";
 import { TableCell } from "./table/table-cell";
 import { TableRow } from "./table/table-row";
-import { attendees } from "../data/attendees";
 import { useState } from "react";
+import { attendees } from "../data/attendees";
 
 dayjs.extend(relativeTime);
 dayjs.locale("pt-br");
