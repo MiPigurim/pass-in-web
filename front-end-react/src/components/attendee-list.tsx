@@ -14,7 +14,7 @@ import { Table } from "./table/table";
 import { TableHeader } from "./table/table-header";
 import { TableCell } from "./table/table-cell";
 import { TableRow } from "./table/table-row";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 dayjs.extend(relativeTime);
 dayjs.locale("pt-br");
@@ -28,20 +28,37 @@ interface Attendee {
 }
 
 export function AttendeeList() {
+  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+
+  const [total, setTotal] = useState(0);
   const [attendees, setAttendees] = useState<Attendee[]>([]);
 
-  const totalPages = Math.ceil(attendees.length / 10);
+  const totalPages = Math.ceil(total / 10);
 
   useEffect(() => {
-    fetch(
+    const url = new URL(
       "http://localhost:3333/events/9e9bd979-9d10-4915-b339-3786b1634f33/attendees"
-    )
+    );
+
+    url.searchParams.set("pageIndex", String(page - 1));
+
+    if (search.length > 0) {
+      url.searchParams.set("query", search);
+    }
+
+    fetch(url)
       .then((Response) => Response.json())
       .then((data) => {
         setAttendees(data.attendees);
+        setTotal(data.total);
       });
-  }, [page]);
+  }, [page, search]);
+
+  function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>) {
+    setSearch(event.target.value);
+    setPage(1);
+  }
 
   function goToNextPage() {
     setPage(page + 1);
@@ -66,8 +83,10 @@ export function AttendeeList() {
         <div className="px-3 w-72 py-1.5 border border-white/10 rounded-lg flex items-center gap-3">
           <Search className="size-4 text-emerald-300" />
           <input
-            className="bg-transparent flex-1 outline-none border-0 p-0 text-sm"
+            className="bg-transparent flex-1 outline-none border-0 p-0 text-sm focus:ring-0"
             placeholder="Buscar participante..."
+            value={search}
+            onChange={onSearchInputChanged}
           />
         </div>
       </div>
@@ -129,7 +148,7 @@ export function AttendeeList() {
         <tfoot>
           <tr>
             <TableCell colSpan={3}>
-              Mostrando 10 de {attendees.length} itens
+              Mostrando {attendees.length} de {total} itens
             </TableCell>
             <TableCell className="text-right" colSpan={3}>
               <div className="inline-flex items-center gap-8">
