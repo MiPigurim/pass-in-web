@@ -6,11 +6,18 @@ import {
   ChevronRight,
   ChevronsRight,
 } from "lucide-react";
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { IconButton } from "./icon-button";
 import { Table } from "./table/table";
 import { TableHeader } from "./table/table-header";
 import { TableCell } from "./table/table-cell";
 import { TableRow } from "./table/table-row";
+import { attendees } from "../data/attendees";
+
+dayjs.extend(relativeTime);
+dayjs.locale("pt-br");
 
 export function AttendeeList() {
   return (
@@ -44,26 +51,26 @@ export function AttendeeList() {
         </thead>
 
         <tbody>
-          {Array.from({ length: 8 }).map((_, i) => {
+          {attendees.map((attendee) => {
             return (
-              <TableRow key={i}>
+              <TableRow key={attendee.id}>
                 <TableCell>
                   <input
                     type="checkbox"
                     className="size-4 bg-black/20 rounded border border-white/10"
                   />
                 </TableCell>
-                <TableCell>12345</TableCell>
+                <TableCell>{attendee.id}</TableCell>
                 <TableCell>
                   <div className="flex flex-col gap-1">
                     <span className="font-semibold text-white">
-                      Diego Schell Fernandes
+                      {attendee.name}
                     </span>
-                    <span>diego@rocketseat.com.br</span>
+                    <span>{attendee.email}</span>
                   </div>
                 </TableCell>
-                <TableCell>7 dias atrás</TableCell>
-                <TableCell>3 dias atrás</TableCell>
+                <TableCell>{dayjs().to(attendee.createdAt)}</TableCell>
+                <TableCell>{dayjs().to(attendee.checkedInAt)}</TableCell>
                 <TableCell>
                   <IconButton transparent={true}>
                     <MoreHorizontal className="size-4" />
