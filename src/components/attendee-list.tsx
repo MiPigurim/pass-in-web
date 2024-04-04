@@ -15,11 +15,19 @@ import { TableHeader } from "./table/table-header";
 import { TableCell } from "./table/table-cell";
 import { TableRow } from "./table/table-row";
 import { attendees } from "../data/attendees";
+import { useState, ChangeEvent } from "react";
 
 dayjs.extend(relativeTime);
 dayjs.locale("pt-br");
 
 export function AttendeeList() {
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+
+  function onSearchInputChange(event: ChangeEvent<HTMLInputElement>) {
+    setSearch(event.target.value);
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-3 items-center">
@@ -51,7 +59,7 @@ export function AttendeeList() {
         </thead>
 
         <tbody>
-          {attendees.map((attendee) => {
+          {attendees.slice((page - 1) * 10, page * 10).map((attendee) => {
             return (
               <TableRow key={attendee.id}>
                 <TableCell>
@@ -83,10 +91,14 @@ export function AttendeeList() {
 
         <tfoot>
           <tr>
-            <TableCell colSpan={3}>Mostrando 10 de 228 itens</TableCell>
+            <TableCell colSpan={3}>
+              Mostrando 10 de {attendees.length} itens
+            </TableCell>
             <TableCell className="text-right" colSpan={3}>
               <div className="inline-flex items-center gap-8">
-                <span>Página 1 de 23</span>
+                <span>
+                  Página {page} de {Math.ceil(attendees.length / 10)}
+                </span>
                 <div className="flex gap-1.5">
                   <IconButton>
                     <ChevronsLeft className="size-4" />
