@@ -28,8 +28,23 @@ interface Attendee {
 }
 
 export function AttendeeList() {
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState(() => {
+    const url = new URL(window.location.toString());
+
+    if (url.searchParams.has("search")) {
+      return url.searchParams.get("search") ?? "";
+    }
+    return "";
+  }); // Ao iniciar, verificar se na URL já tem search, se já tiver, vai pegar esse search, se não volta apenas a URL inicial
+
+  const [page, setPage] = useState(() => {
+    const url = new URL(window.location.toString());
+
+    if (url.searchParams.has("page")) {
+      return Number(url.searchParams.get("page"));
+    }
+    return 1;
+  }); // para manter o estado da página atualizado ao recarrega-la, com o valor da query string da URL
 
   const [total, setTotal] = useState(0);
   const [attendees, setAttendees] = useState<Attendee[]>([]);
@@ -55,25 +70,47 @@ export function AttendeeList() {
       });
   }, [page, search]);
 
+  function setCurrentPage(page: number) {
+    const url = new URL(window.location.toString());
+    url.searchParams.set("page", String(page));
+    window.history.pushState({}, "", url);
+
+    setPage(page);
+  } // isso para manter o histório gravado na URL e sem recarregar toda a aplicação cada vez que se muda de página
+  // A página da aplicação ficou persistida tanto na url (para manter o histórico) quanto no estado para ser usado na renderização dos dados.
+
+  function setCurrentSearch(search: string) {
+    const url = new URL(window.location.toString());
+    url.searchParams.set("search", search);
+    window.history.pushState({}, "", url);
+
+    setSearch(search);
+  } // isso para manter o histório gravado na URL ao realizar pesquisa
+
   function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>) {
-    setSearch(event.target.value);
-    setPage(1);
+    setCurrentSearch(event.target.value);
+    // setPage(1);
+    setCurrentPage(1);
   }
 
   function goToNextPage() {
-    setPage(page + 1);
+    // setPage(page + 1);
+    setCurrentPage(page + 1);
   }
 
   function goToPreviousPage() {
-    setPage(page - 1);
+    // setPage(page - 1);
+    setCurrentPage(page - 1);
   }
 
   function goToFirstPage() {
-    setPage(1);
+    // setPage(1);
+    setCurrentPage(1);
   }
 
   function goToLastPage() {
-    setPage(totalPages);
+    // setPage(totalPages);
+    setCurrentPage(totalPages);
   }
 
   return (
