@@ -28,6 +28,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Figma
 - Tailwind CSS
 - IconFinder
+- SQL
 
 ## 💻 Projeto
 
