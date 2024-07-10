@@ -12,7 +12,7 @@ Este é um projeto desenvolvido no evento NLW Unite, trilha React da Rocketseat.
 </p>
 
 <p align="center">
-  <img alt="Imagem de visualização Pass in" src="./src/assets/visualizacao.png">
+  <img alt="Imagem de visualização Pass in" src="./front-end-react/src/assets/visualizacao.png">
 </p>
 
 <br>
