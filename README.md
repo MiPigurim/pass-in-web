@@ -21,14 +21,13 @@ Este é um projeto desenvolvido no evento NLW Unite, trilha React da Rocketseat.
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- HTML e CSS
 - TypeScript
 - ReactJS
-- Git e Github
 - Figma
 - Tailwind CSS
 - IconFinder
 - SQL
+- Git e Github
 
 ## 💻 Projeto
 
